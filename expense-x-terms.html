@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — Expense X</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-void: #07070f;
+    --bg-deep: #0d0d1f;
+    --bg-card: rgba(255,255,255,0.035);
+    --bg-card-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08);
+    --border-glow: rgba(139,92,246,0.35);
+    --purple: #8b5cf6;
+    --purple-bright: #a78bfa;
+    --pink: #ec4899;
+    --cyan: #22d3ee;
+    --blue: #3b82f6;
+    --text-primary: #f0f0ff;
+    --text-secondary: rgba(240,240,255,0.55);
+    --text-muted: rgba(240,240,255,0.32);
+    --gradient-brand: linear-gradient(135deg, #8b5cf6, #ec4899);
+    --gradient-cool: linear-gradient(135deg, #3b82f6, #22d3ee);
+    --gradient-full: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #22d3ee 100%);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --glow-purple: 0 0 40px rgba(139,92,246,0.25);
+    --glow-cyan: 0 0 40px rgba(34,211,238,0.2);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-void);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background effects ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 0%, rgba(139,92,246,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 85% 5%, rgba(34,211,238,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 50% 100%, rgba(59,130,246,0.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── Sticky Header ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,7,15,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(16px, 5vw, 48px);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--gradient-brand);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 17px;
+    color: white;
+    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+    flex-shrink: 0;
+  }
+
+  .logo-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+
+  nav { display: flex; align-items: center; gap: 8px; }
+
+  .nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+    border-color: var(--border);
+  }
+
+  .nav-cta {
+    background: var(--gradient-brand);
+    color: white !important;
+    border-color: transparent !important;
+    font-weight: 600;
+    box-shadow: 0 0 16px rgba(139,92,246,0.3);
+  }
+
+  .nav-cta:hover {
+    box-shadow: 0 0 24px rgba(139,92,246,0.5) !important;
+    transform: translateY(-1px);
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    transition: all 0.2s;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: rgba(7,7,15,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 8px;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.25s;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-menu .nav-link { padding: 12px 16px; }
+
+  /* ── Hero Section ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: clamp(60px, 10vw, 100px) clamp(16px, 5vw, 48px) clamp(40px, 6vw, 60px);
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(139,92,246,0.35);
+    background: rgba(139,92,246,0.1);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--purple-bright);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--purple-bright);
+    box-shadow: 0 0 8px var(--purple-bright);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .grad {
+    background: var(--gradient-full);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--text-secondary);
+    font-weight: 300;
+    max-width: 540px;
+    margin: 0 auto 28px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    animation: fadeUp 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Main Layout ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 40px) 80px;
+  }
+
+  /* Intro card */
+  .intro-card {
+    background: rgba(139,92,246,0.07);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+
+  .intro-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .intro-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .intro-card strong { color: var(--purple-bright); }
+
+  /* ── Section Cards ── */
+  .sections-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .term-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .term-card:hover {
+    border-color: var(--border-glow);
+    background: var(--bg-card-hover);
+    box-shadow: var(--glow-purple);
+  }
+
+  .term-header {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+
+  .term-number {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--gradient-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 13px;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 14px rgba(139,92,246,0.35);
+    transition: box-shadow 0.3s;
+  }
+
+  .term-card:hover .term-number { box-shadow: 0 0 22px rgba(139,92,246,0.55); }
+
+  .term-icon {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .term-title {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .term-chevron {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.2s;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .term-card.open .term-chevron {
+    transform: rotate(180deg);
+    background: rgba(139,92,246,0.15);
+    color: var(--purple-bright);
+    border-color: rgba(139,92,246,0.3);
+  }
+
+  .term-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    opacity: 0;
+  }
+
+  .term-card.open .term-body {
+    max-height: 600px;
+    opacity: 1;
+  }
+
+  .term-content {
+    padding: 0 22px 22px;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .term-content p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .term-content p:last-child { margin-bottom: 0; }
+
+  .term-content ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .term-content li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.65;
+  }
+
+  .term-content li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gradient-brand);
+  }
+
+  .term-content a {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(34,211,238,0.3);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .term-content a:hover {
+    color: white;
+    border-color: rgba(34,211,238,0.7);
+  }
+
+  .highlight-box {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(34,211,238,0.06);
+    border: 1px solid rgba(34,211,238,0.2);
+    border-radius: 10px;
+    font-size: 13px;
+    color: rgba(34,211,238,0.85);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.6;
+  }
+
+  .warning-box {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(251,191,36,0.06);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 10px;
+    font-size: 13px;
+    color: rgba(251,191,36,0.85);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.6;
+  }
+
+  /* ── Contact Card ── */
+  .contact-section {
+    margin-top: 40px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(34,211,238,0.08));
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 20px;
+    padding: clamp(28px, 5vw, 44px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-section::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-section h2 {
+    font-family: var(--font-head);
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .contact-section p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+
+  .contact-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    border: none;
+    font-family: var(--font-body);
+  }
+
+  .btn-primary {
+    background: var(--gradient-brand);
+    color: white;
+    box-shadow: 0 0 20px rgba(139,92,246,0.35);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(139,92,246,0.55);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+  }
+
+  .email-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--cyan);
+    margin-bottom: 20px;
+    font-family: monospace;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Acceptance Banner ── */
+  .acceptance-banner {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .acceptance-banner .shield {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--gradient-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(139,92,246,0.4);
+  }
+
+  .acceptance-banner p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .acceptance-banner strong { color: var(--text-primary); }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px clamp(16px, 5vw, 48px);
+    margin-top: 40px;
+  }
+
+  .footer-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 7px;
+    transition: all 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+  }
+
+  .footer-links .sep {
+    color: var(--border);
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .footer-copy span {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
+
+  /* Scroll progress */
+  .progress-bar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    height: 2px;
+    background: var(--gradient-full);
+    z-index: 101;
+    transition: width 0.1s;
+    box-shadow: 0 0 8px rgba(139,92,246,0.6);
+  }
+
+  /* Back to top */
+  .back-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--gradient-brand);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(139,92,246,0.45);
+    transition: all 0.25s;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .back-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .back-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(139,92,246,0.6);
+  }
+
+  /* Stagger delays for cards */
+  .term-card:nth-child(1) { animation-delay: 0.1s; }
+  .term-card:nth-child(2) { animation-delay: 0.15s; }
+  .term-card:nth-child(3) { animation-delay: 0.2s; }
+  .term-card:nth-child(4) { animation-delay: 0.25s; }
+  .term-card:nth-child(5) { animation-delay: 0.3s; }
+  .term-card:nth-child(6) { animation-delay: 0.35s; }
+  .term-card:nth-child(7) { animation-delay: 0.4s; }
+  .term-card:nth-child(8) { animation-delay: 0.45s; }
+  .term-card:nth-child(9) { animation-delay: 0.5s; }
+  .term-card:nth-child(10) { animation-delay: 0.55s; }
+  .term-card:nth-child(11) { animation-delay: 0.6s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+    .term-header { padding: 15px 16px; }
+    .term-content { padding: 0 16px 18px; padding-top: 16px; }
+    .contact-actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+    .acceptance-banner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Header -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">₹</div>
+    <span class="logo-name">Expense X</span>
+  </a>
+  <nav>
+    <a href="index.html" class="nav-link">Dashboard</a>
+    <a href="#" class="nav-link">Features</a>
+    <a href="expense-x-about.html" class="nav-link">about </a>
+   
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" class="nav-link">Dashboard</a>
+  <a href="#" class="nav-link">Features</a>
+  <a href="#" class="nav-link">Privacy Policy</a>
+  <a href="#" class="nav-link nav-cta">Get Started</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge"><div class="badge-dot"></div> Legal Document</div>
+  <h1>Terms &amp; <span class="grad">Conditions</span></h1>
+  <p class="hero-sub">Please read these terms carefully before using Expense X. Your access to the service constitutes acceptance.</p>
+  <div class="hero-meta">
+    <span>📅 Last updated: 26 May 2025</span>
+    <span>·</span>
+    <span>📖 11 sections</span>
+    <span>·</span>
+    <span>⏱ ~4 min read</span>
+  </div>
+</section>
+
+<!-- Main content -->
+<main>
+  <!-- Intro -->
+  <div class="intro-card">
+    <div class="intro-icon">👋</div>
+    <p>Welcome to <strong>Expense X</strong> — your smart personal finance companion. By accessing or using our platform, you agree to be bound by these Terms &amp; Conditions and our Privacy Policy. If you do not agree with any part, please discontinue use of the service.</p>
+  </div>
+
+  <div class="sections-grid" id="accordion">
+
+    <!-- 1 -->
+    <div class="term-card open">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">1</div>
+        <div class="term-icon">✅</div>
+        <div class="term-title">Acceptance of Terms</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>By accessing, browsing, or using Expense X in any way, you acknowledge that you have read, understood, and agree to be legally bound by these Terms &amp; Conditions.</p>
+          <ul>
+            <li>These terms apply to all visitors, registered users, and anyone interacting with our platform.</li>
+            <li>If you do not agree with any provision, you must stop using the service immediately.</li>
+            <li>Your continued use after any updates constitutes acceptance of the revised terms.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">2</div>
+        <div class="term-icon">💼</div>
+        <div class="term-title">Description of Service</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Expense X is a comprehensive personal finance management platform designed to empower your financial life. Our service includes:</p>
+          <ul>
+            <li><strong>Income &amp; Expense Tracking</strong> — Log and categorize every transaction effortlessly.</li>
+            <li><strong>Budget Planning</strong> — Set budgets and stay on track with smart alerts.</li>
+            <li><strong>Savings Monitoring</strong> — Track your savings goals and progress over time.</li>
+            <li><strong>Charts &amp; Analytics</strong> — Visualize your financial patterns with interactive charts.</li>
+            <li><strong>Trip Planning</strong> — Plan and manage travel budgets seamlessly.</li>
+            <li><strong>AI Financial Insights</strong> — Get personalized, data-driven financial recommendations.</li>
+          </ul>
+          <p>We reserve the right to modify, suspend, or discontinue any part of the service at any time without prior notice.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">3</div>
+        <div class="term-icon">👤</div>
+        <div class="term-title">User Accounts</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>To access the full features of Expense X, you must create and maintain a user account.</p>
+          <ul>
+            <li>You are solely responsible for maintaining the confidentiality of your login credentials.</li>
+            <li>You must provide accurate, current, and complete information during registration.</li>
+            <li>You agree to update your information promptly if it changes.</li>
+            <li>You are responsible for all activities that occur under your account.</li>
+            <li>Notify us immediately at <a href="mailto:satyammaurya@gmail.com">satyammaurya@gmail.com</a> if you suspect unauthorized access.</li>
+          </ul>
+          <div class="highlight-box">
+            ℹ️ We recommend using a strong, unique password and enabling two-factor authentication for maximum account security.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">4</div>
+        <div class="term-icon">⚖️</div>
+        <div class="term-title">User Responsibilities</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>As a user of Expense X, you agree to use the platform responsibly, ethically, and in accordance with all applicable laws.</p>
+          <ul>
+            <li>Use the platform for lawful personal finance management purposes only.</li>
+            <li>Do not attempt unauthorized access to any systems, accounts, or data.</li>
+            <li>Do not interfere with or disrupt the platform's infrastructure, servers, or security.</li>
+            <li>Do not transmit harmful, fraudulent, or malicious content through the platform.</li>
+            <li>Do not use automated scripts, bots, or scrapers without explicit permission.</li>
+            <li>Do not impersonate other users or misrepresent your identity.</li>
+          </ul>
+          <div class="warning-box">
+            ⚠️ Violation of these responsibilities may result in immediate account suspension or permanent termination.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">5</div>
+        <div class="term-icon">🔒</div>
+        <div class="term-title">Data &amp; Privacy</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Your privacy is our priority. Expense X is committed to safeguarding your personal and financial data with industry-standard security practices.</p>
+          <ul>
+            <li>All user data is encrypted in transit and at rest using modern encryption standards.</li>
+            <li>We collect only the data necessary to provide and improve our services.</li>
+            <li>Your financial data is never sold to third parties for advertising purposes.</li>
+            <li>You retain full ownership of your personal data at all times.</li>
+          </ul>
+          <p>For complete details on how we collect, use, store, and protect your data, please review our <a href="#">Privacy Policy</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">6</div>
+        <div class="term-icon">🔗</div>
+        <div class="term-title">Third-Party Services</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Expense X integrates with carefully selected third-party services to deliver a reliable and feature-rich experience:</p>
+          <ul>
+            <li><strong>Firebase (Google)</strong> — Used for user authentication, real-time database, and secure data storage.</li>
+            <li><strong>Cloudinary</strong> — Used for profile image uploads and optimized image storage and delivery.</li>
+          </ul>
+          <p>These third-party providers operate under their own independent Terms of Service and Privacy Policies. We are not responsible for the practices, content, or policies of these services.</p>
+          <div class="highlight-box">
+            ℹ️ By using Expense X, you also agree to the relevant terms of our third-party service providers.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">7</div>
+        <div class="term-icon">📊</div>
+        <div class="term-title">Financial Disclaimer</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Expense X is a personal finance tracking and budgeting tool designed to help you organize and visualize your finances.</p>
+          <ul>
+            <li>The platform <strong>does not</strong> provide professional financial, investment, tax, or legal advice.</li>
+            <li>AI Insights and suggestions are informational and educational in nature only.</li>
+            <li>All financial decisions remain solely your responsibility.</li>
+            <li>We recommend consulting a qualified financial advisor for professional guidance.</li>
+          </ul>
+          <div class="warning-box">
+            ⚠️ Expense X is a management tool, not a financial advisory service. Always seek qualified professional advice for important financial decisions.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">8</div>
+        <div class="term-icon">🛡️</div>
+        <div class="term-title">Limitation of Liability</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Expense X is provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis without warranties of any kind, either express or implied.</p>
+          <ul>
+            <li>We are not liable for any indirect, incidental, special, or consequential damages.</li>
+            <li>We are not responsible for financial losses resulting from reliance on platform data or insights.</li>
+            <li>We are not liable for service interruptions, data loss, or technical issues beyond our reasonable control.</li>
+            <li>Our total liability, in any circumstance, shall not exceed the fees paid by you in the last 3 months.</li>
+          </ul>
+          <p>To the maximum extent permitted by applicable law, Expense X disclaims all liability for any harm arising from your use or inability to use the service.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">9</div>
+        <div class="term-icon">🚫</div>
+        <div class="term-title">Account Suspension &amp; Termination</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>We reserve the right to suspend or terminate your account and access to the service at our sole discretion, without prior notice, under the following circumstances:</p>
+          <ul>
+            <li>Violation of any provision of these Terms &amp; Conditions.</li>
+            <li>Engaging in fraudulent, abusive, or harmful activities.</li>
+            <li>Attempts to compromise the security or integrity of the platform.</li>
+            <li>Providing false or misleading information during registration or use.</li>
+          </ul>
+          <p>You may also choose to delete your account at any time through the Settings page. Upon termination, your data will be handled as described in our Privacy Policy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">10</div>
+        <div class="term-icon">🔄</div>
+        <div class="term-title">Updates to Terms</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>We may revise these Terms &amp; Conditions periodically to reflect changes in our services, legal requirements, or business practices.</p>
+          <ul>
+            <li>Updates will be published on this page with a revised "Last Updated" date.</li>
+            <li>For significant changes, we may notify you via email or in-app notification.</li>
+            <li>Your continued use of Expense X after any update constitutes acceptance of the new terms.</li>
+            <li>If you disagree with revised terms, you must stop using the service and may delete your account.</li>
+          </ul>
+          <div class="highlight-box">
+            ℹ️ We recommend reviewing this page periodically. Bookmark it for easy access to the latest version.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="term-card">
+      <div class="term-header" onclick="toggle(this)">
+        <div class="term-number">11</div>
+        <div class="term-icon">📧</div>
+        <div class="term-title">Contact Information</div>
+        <div class="term-chevron">▼</div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Have questions about these Terms &amp; Conditions? We're here to help.</p>
+          <ul>
+            <li>Our support team typically responds within 24–48 business hours.</li>
+            <li>For privacy-related inquiries, please reference our Privacy Policy.</li>
+            <li>For urgent security issues, mark your email subject as <strong>[URGENT]</strong>.</li>
+          </ul>
+          <p>You can reach us at <a href="mailto:satyammaurya@gmail.com">satyammaurya@gmail.com</a> or use the contact form below.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Acceptance banner -->
+  <div class="acceptance-banner">
+    <div class="shield">🛡️</div>
+    <p>By using Expense X, you acknowledge that you have <strong>read, understood, and agree</strong> to these Terms &amp; Conditions. These terms were last updated on <strong>26 May 2025</strong>.</p>
+  </div>
+
+  <!-- Contact section -->
+  <div class="contact-section">
+    <h2>Questions? We're Here</h2>
+    <p>Our team is available to clarify any aspect of these terms or assist with any concerns you may have.</p>
+    <div class="email-pill">✉️ satyammaurya@gmail.com</div>
+    <div class="contact-actions">
+      <a href="mailto:satyammaurya@gmail.com" class="btn btn-primary">✉️ Email Support</a>
+      <a href="#" class="btn btn-secondary">📝 Contact Form</a>
+      <a href="#" class="btn btn-secondary">🔒 Privacy Policy</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon" style="width:30px;height:30px;font-size:13px;">₹</div>
+      <span style="font-family:var(--font-head);font-weight:700;font-size:15px;">Expense X</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Dashboard</a>
+      <span class="sep">·</span>
+      <a href="#">About Us</a>
+      <span class="sep">·</span>
+      <a href="#">Privacy Policy</a>
+      <span class="sep">·</span>
+      <a href="#">Terms &amp; Conditions</a>
+      <span class="sep">·</span>
+      <a href="#">Contact</a>
+      <span class="sep">·</span>
+      <a href="#">Blog</a>
+    </div>
+    <p class="footer-copy">© 2025 <span>Expense X</span>. All rights reserved. Built with ❤️ for financial freedom.</p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+
+<script>
+  // Accordion
+  function toggle(header) {
+    const card = header.closest('.term-card');
+    const isOpen = card.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.term-card.open').forEach(c => c.classList.remove('open'));
+    // Open if was closed
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close menu on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // Scroll progress
+  const progressBar = document.getElementById('progressBar');
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scrolled / total * 100) + '%';
+    backTop.classList.toggle('visible', scrolled > 300);
+  });
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

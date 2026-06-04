@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense X</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div id="appLoader" class="app-loader-wrapper">
+  <div class="loading-wave">
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+  </div>
+  <p style="color: #3498db; margin-top: 15px; font-family: sans-serif; font-weight: 600;">Loading Expense X... ⏳</p>
+</div>
+  <div class="bg-blur bg1"></div>
+  <div class="bg-blur bg2"></div>
+  <h2 data-i18n="trackMoney">Track your money smarter</h2>
+
+  Manage income, expenses, savings...
+  </p>
+  <!-- LOGIN SCREEN -->
+  <section id="loginScreen" class="login-screen">
+  <div class="login-card glass">
+    <div class="login-logo">EX</div>
+    <h2 id="loginTitle">Expense X</h2>
+    <p id="loginDesc">Login to manage your finance and friends trip planner</p>
+
+    <form id="loginForm" class="login-form">
+      <div class="field" id="nameField" style="display: none;">
+        <label>Name</label>
+        <input type="text" id="loginName" placeholder="Enter your name"  />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter password" required />
+      </div>
+      
+      <button type="submit" id="loginSubmitBtn" class="primary-btn">Login</button>
+      <div style="text-align: right; margin-bottom: 15px;">
+  <a href="#" id="forgotPasswordLink" style="color: #3498db; font-size: 13px; text-decoration: none; font-family: sans-serif;">Forgot Password?</a>
+</div>
+      
+      <p style="text-align: center; margin-top: 15px; color: var(--text); font-size: 14px;">
+        <span id="toggleText">Don't have an account?</span> 
+        <a href="#" id="toggleAuthMode" style="color: #00ffff; text-decoration: none; font-weight: 600; margin-left: 5px;">Register here</a>
+      </p>
+      
+    </form>
+  </div>
+</section>
+
+  <!-- APP -->
+  <div id="appWrapper" class="app-wrapper hidden">
+    <aside class="sidebar glass" id="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-logo">₹</div>
+        <h2>Expense X</h2>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="expense-x-terms.html">Terms & Conditions</a>
+         <a href="expense-x-about.html">About-us</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#transactions">Transactions</a>
+        <a href="#charts">Charts</a>
+        <a href="#trip">Trip Planner</a>
+        <a href="#insights">AI Insights</a>
+        <a href="#trashbin">Trash Bin</a>
+        <a href="#settings">Settings</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button id="themeToggle" class="theme-btn">🌙 Dark Mode</button>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="logo-wrap">
+          <div class="logo">EX</div>
+          <div>
+            <h1>Expense X</h1>
+            <p id="welcomeText">Welcome</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button id="mobileMenuBtn" class="theme-btn mobile-only">☰ Menu</button>
+        </div>
+      </header>
+
+      <main class="container">
+        <!-- HERO -->
+        <section id="dashboard" class="hero glass">
+          <div class="hero-left">
+            <h2>Track your money smarter</h2>
+            <p>
+              Manage income, expenses, savings, carry-forward budget,
+              monthly spending until next salary, and your
+              <strong>friends trip fund</strong> in one premium dashboard.
+            </p>
+          </div>
+
+          <div class="hero-right">
+            <div class="badge">Money Track</div>
+            <div class="badge">Track Trip Funds</div>
+            <div class="badge">AI Insights</div>
+            <div class="badge">Charts</div>
+          </div>
+        </section>
+
+        <!-- SUMMARY -->
+        <section class="summary-grid">
+          <div class="card glass balance-card" onclick="resetBalance()" style="cursor: pointer;"
+            title="Click to reset balance">
+            <h3>Total Balance</h3>
+            <p id="totalBalance">₹0</p>
+            <small style="color: var(--muted); font-size: 12px; margin-top: 8px;">Click to reset</small>
+          </div>
+
+          <div class="card glass income-card">
+            <h3>Total Income</h3>
+            <p id="totalIncome">₹0</p>
+          </div>
+
+          <div class="card glass expense-card">
+            <h3>Total Expense</h3>
+            <p id="totalExpense">₹0</p>
+          </div>
+
+          <div class="card glass savings-card">
+            <h3>Total Savings</h3>
+            <p id="totalSavings">₹0</p>
+          </div>
+        </section>
+
+        <!-- CONTROLS -->
+        <section id="transactions" class="grid-2">
+          <div class="card glass">
+            <div class="card-head">
+              <h3 id="formTitle">Add Transaction</h3>
+              <button id="cancelEditBtn" class="secondary-btn hidden">Cancel Edit</button>
+            </div>
+
+            <form id="transactionForm" class="form-grid">
+              <div class="field">
+                <label>Type</label>
+                <select id="type" required>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Amount</label>
+                <input type="number" id="amount" placeholder="Enter amount" />
+              </div>
+
+              <div class="field">
+                <label>Category</label>
+                <select id="category" required>
+                  <option value="Salary">Salary</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Food">Food</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Bills">Bills</option>
+                  <option value="Health">Health</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Date</label>
+                <input type="date" id="date" required />
+              </div>
+
+              <div class="field full">
+                <label>Note</label>
+                <input type="text" id="note" placeholder="Add note..." />
+              </div>
+
+              <div class="field full">
+  <label>Upload Receipt / Screenshot</label>
+  <input
+    type="file"
+    id="transactionPhoto"
+    accept="image/*"
+    capture="environment"
+  />
+  <img id="photoPreview" class="photo-preview" />
+</div>
+
+              <div class="field full">
+                <label>Monthly Budget</label>
+                <input type="number" id="budgetInput" placeholder="Set monthly budget" />
+              </div>
+
+              <div class="field full">
+                <button type="submit" class="primary-btn" id="submitBtn">Add Transaction</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Budget Status</h3>
+            </div>
+
+            <div class="budget-box">
+              <p><strong>Current Budget:</strong> <span id="budgetValue">₹0</span></p>
+              <p><strong>Spent in Current Cycle:</strong> <span id="budgetSpent">₹0</span></p>
+              <p><strong>Remaining:</strong> <span id="budgetRemaining">₹0</span></p>
+              <p><strong>Carry Forward Next Salary:</strong> <span id="carryForward">₹0</span></p>
+
+              <div class="progress-wrap">
+                <div id="budgetBar" class="progress-bar"></div>
+              </div>
+
+              <p id="budgetWarning" class="warning-text"></p>
+            </div> <!-- ✅ Properly closed -->
+
+            <!-- ✅ Reset button after budget box -->
+            <div class="field full" style="margin-top: 20px;">
+              <button id="resetTransactionsBtn" class="delete-btn" style="width: 100%;">🚮 Reset All
+                Transactions</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHARTS -->
+        <section id="charts" class="grid-2">
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Monthly Expense Distribution</h3>
+            </div>
+            <canvas id="pieChart" width="500" height="320"></canvas>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Income vs Expense Chart</h3>
+            </div>
+            <canvas id="barChart" width="500" height="320"></canvas>
+          </div>
+        </section>
+
+        <!-- TRANSACTION HISTORY -->
+        <section class="card glass">
+          <div class="card-head wrap">
+            <h3>Transaction History</h3>
+            <div class="filters">
+              <input type="text" id="searchInput" placeholder="Search note/category..." />
+              <select id="filterType">
+                <option value="all">All</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <button onclick="exportPDF()" class="primary-btn" type="button">Export PDF</button>
+            </div>
+          </div>
+
+          <div class="table-wrap scroll-table">
+            <table>
+              <thead>
+              <tr>
+                <th>photo</th>
+           <th>Type</th>
+           <th>Amount</th>
+           <th>Category</th>
+           <th>Date</th>
+           <th>Note</th>
+            <th>Action</th>
+</tr>
+              </thead>
+              <tbody id="transactionList"></tbody>
+            </table>
+          </div>
+        </section>
+<!-- TRASH BIN -->
+<section id="trashbin" class="card glass">
+  <div class="card-head wrap">
+    <h3>🗑️ Trash Bin</h3>
+    <div class="filters">
+      <select id="trashFilter">
+        <option value="all" selected>All Deleted Items</option>
+        <option value="transaction">Transactions</option>
+        <option value="trip">Trip Expenses</option>
+        <option value="friend">Friends</option>
+      </select>
+      <button onclick="emptyTrash()" class="delete-btn" style="padding: 8px 16px;">🗑️ Empty Trash</button>
+    </div>
+  </div>
+
+  <div class="table-wrap scroll-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Item</th>
+          <th>Amount</th>
+          <th>Date Deleted</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="trashList"></tbody>
+    </table>
+  </div>
+  
+  <div id="trashEmpty" style="text-align: center; padding: 40px; color: var(--muted); display: none;">
+    <div style="font-size: 48px; margin-bottom: 16px;">🗑️</div>
+    <p><strong>Trash is empty</strong></p>
+    <p style="font-size: 14px;">Deleted items will appear here for 30 days</p>
+  </div>
+</section>
+        <!-- FRIENDS TRIP -->
+        <section id="trip" class="trip-section">
+          <div class="section-title">
+            <h2>Friends Trip Planner</h2>
+            <p>Collect money, track spending, see who spent where, and calculate settlement.</p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card glass">
+              <div class="card-head">
+                <h3>Add Friend Contribution</h3>
+              </div>
+
+              <form id="friendForm" class="form-grid">
+                <div class="field">
+                  <label>Friend Name</label>
+                  <input type="text" id="friendName" placeholder="Enter friend name" required />
+                </div>
+
+                <div class="field">
+                  <label>Contribution Amount</label>
+                  <input type="number" id="friendContribution" placeholder="Enter amount" required />
+                </div>
+
+                <div class="field full">
+                  <button type="submit" class="primary-btn">Add Friend</button>
+                </div>
+              </form>
+
+              <div class="table-wrap small-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Friend</th>
+                      <th>Contribution</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="friendList"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card glass">
+              <div class="card-head">
+                <h3>Add Trip Expense</h3>
+              </div>
+
+              <form id="tripExpenseForm" class="form-grid">
+                <div class="field">
+                  <label>Spent By</label>
+                  <select id="spentBy" required>
+                    <option value="">Select friend</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Amount</label>
+                  <input type="number" id="tripAmount" placeholder="Enter amount" />
+                </div>
+
+                <div class="field">
+                  <label>Where Spent</label>
+                  <input type="text" id="tripPlace" placeholder="Hotel, Food, Taxi..." required />
+                </div>
+
+                <div class="field">
+                  <label>Date</label>
+                  <input type="date" id="tripDate" required />
+                </div>
+
+                <div class="field full">
+                  <label>Description</label>
+                  <input type="text" id="tripDesc" placeholder="Extra details..." />
+                </div>
+
+                <div class="field full">
+                  <button type="submit" class="primary-btn">Add Trip Expense</button>
+                </div>
+              </form>
+              <div class="field full">
+                <button id="resetTripDataBtn" class="delete-btn" style="width: 100%; margin-top: 10px;">🚮 Reset All
+                  Trip Data</button>
+              </div>
+            </div>
+
+          </div>
+
+          <section class="summary-grid">
+            <div class="card glass trip-card">
+              <h3>Total Collected</h3>
+              <p id="tripCollected">₹0</p>
+            </div>
+
+            <div class="card glass trip-card">
+              <h3>Total Trip Spent</h3>
+              <p id="tripSpent">₹0</p>
+            </div>
+
+            <div class="card glass trip-card">
+              <h3>Trip Remaining</h3>
+              <p id="tripRemaining">₹0</p>
+            </div>
+
+            <div class="card glass trip-card">
+              <h3>Equal Share Remaining</h3>
+              <p id="equalRemaining">₹0</p>
+            </div>
+          </section>
+
+          <section class="grid-2">
+            <div class="card glass">
+              <div class="card-head">
+                <h3>Trip Expense History</h3>
+              </div>
+
+              <select id="tripFilterFriend">
+                <option value="all">All Friends</option>
+              </select>
+
+              <p id="friendTotals"></p>
+
+              <div class="table-wrap scroll-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Spent By</th>
+                      <th>Amount</th>
+                      <th>Where</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tripExpenseList"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card glass">
+              <div class="card-head">
+                <h3>Friend Summary & Settlement</h3>
+              </div>
+
+              <div id="friendSummaryCards" class="friend-summary-grid"></div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>From (Pay)</th>
+                    <th>To (Receive)</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="settlementTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- AI INSIGHTS -->
+        <section id="insights" class="grid-2">
+          <div class="card glass">
+            <div class="card-head">
+              <h3>AI Spending Analysis</h3>
+            </div>
+            <div id="aiAnalysis" class="analysis-box"></div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Smart Budget Suggestions</h3>
+            </div>
+            <div id="budgetSuggestions" class="analysis-box"></div>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="settings" class="card glass">
+          <div class="card-head">
+            <h3>⚙ Settings</h3>
+          </div>
+
+          <div class="field">
+            <label>Update Name</label>
+            <input type="text" id="profileName" />
+          </div>
+
+          <div class="field">
+            <label>Update Email</label>
+            <input type="email" id="profileEmail" />
+          </div>
+
+          <button id="saveProfileBtn" class="primary-btn">Save Profile</button>
+
+          <div class="field">
+            <label>Custom Primary Color</label>
+            <input type="color" id="primaryColorPicker" />
+          </div>
+
+          <div class="field">
+            <label>Custom Secondary Color</label>
+            <input type="color" id="secondaryColorPicker" />
+          </div>
+
+          <!-- THEME COLORS -->
+          <div class="field">
+            <label>Select Theme</label>
+            <select id="themeSelector">
+              <option value="default">Neon (Default)</option>
+              <option value="blue">Ocean Blue</option>
+              <option value="green">Nature Green</option>
+              <option value="red">Fire Red</option>
+              <option value="purple">Royal Purple</option>
+              <option value="orange">Sunset Orange</option>
+              <option value="pink">Candy Pink</option>
+              <option value="yellow">Golden Yellow</option>
+              <option value="darkblue">Deep Blue</option>
+              <option value="teal">Teal</option>
+            </select>
+          </div>
+
+          <!-- CURRENCY -->
+          <div class="field">
+            <label>Currency</label>
+            <select id="currencySelector">
+              <option value="₹">₹ INR</option>
+              <option value="$">$ USD</option>
+              <option value="€">€ Euro</option>
+              <option value="£">£ Pound</option>
+              <option value="¥">¥ Yen</option>
+            </select>
+          </div>
+
+          <!-- LANGUAGE -->
+          <div class="field">
+            <label>Language</label>
+            <select id="languageSelector">
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="es">Spanish</option>
+            </select>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script type="module" src="script.js"></script>
+  <div id="imageModal" class="image-modal">
+  <span id="closeImageModal">&times;</span>
+  <img id="modalImage" />
+</div>
+</body>
+
+</html>
